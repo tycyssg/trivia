@@ -9,6 +9,7 @@ export class RegisterComponent implements OnInit {
 
   constructor() { }
 
+  text = "This is a example"
   ngOnInit() {
   }
 

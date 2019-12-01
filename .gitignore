@@ -39,6 +39,6 @@ hs_err_pid*
 *.iml
 *.ipr
 
-/src/main/frontend/*.json
+/src/main/frontend/e2e/*
 /src/main/resources/static/*
 /.settings
