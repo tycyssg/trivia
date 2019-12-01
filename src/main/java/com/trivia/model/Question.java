@@ -1,55 +1,27 @@
 package com.trivia.model;
 
+import com.trivia.utils.Utilities.QuestionDificulty;
+import lombok.Data;
+
 import javax.persistence.*;
-import javax.print.DocFlavor;
-import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "questions")
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category", nullable = false)
     private String question;
-    private ArrayList<String> choices;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "questionId")
+    private List<QuestionAnswers> questionAnswers;
     private String correctAnswer;
 
-    public Question() {
+    @Enumerated(EnumType.STRING)
+    private QuestionDificulty questionDificulty;
 
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public ArrayList<String> getChoices() {
-        return choices;
-    }
-
-    public void setChoices(ArrayList<String> choices) {
-        this.choices = choices;
-    }
-
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
 }
