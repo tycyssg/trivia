@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import {MatButton, MatButtonModule, MatIconModule, MatInputModule} from "@angular/material";
+import {MatButton, MatButtonModule, MatIconModule, MatInputModule, MatSelectModule} from "@angular/material";
 import {MatSliderModule} from "@angular/material";
 import {MatMenuModule} from "@angular/material";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -21,11 +22,13 @@ import {MatMenuModule} from "@angular/material";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgbModule,
     MatInputModule,
     MatSliderModule,
     MatMenuModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
