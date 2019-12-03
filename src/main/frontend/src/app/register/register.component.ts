@@ -35,8 +35,8 @@ export class RegisterComponent implements OnInit {
   register(){
     const user:UserModel = new UserModel(this.registerForm.value);
     this.userService.registerUser(user).subscribe(response =>{
-
-    })
+      console.log(response)
+    },error1 => console.log(error1.error))
   }
   showBar(){
     this.showProgressBar = true;
@@ -70,8 +70,6 @@ export class RegisterComponent implements OnInit {
       }
     })
   }
-
-
 
 
   checkPasswordRepeat() {

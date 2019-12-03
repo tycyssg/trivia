@@ -32,10 +32,15 @@ public class UserController {
     @PostMapping("/registration")
     public ResponseEntity<?> register(@RequestBody User user){
         if(userService.findByUsername(user.getUsername()) != null){
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new Gson().toJson("USERNAME_EXIST"),HttpStatus.CONFLICT);
+        }
+        if(userService.findByEmail(user.getEmail()) != null){
+            return new ResponseEntity<>(new Gson().toJson("EMAIL_EXIST"),HttpStatus.CONFLICT);
         }
         user.setRole(Role.USER);
-        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+        user.setScore(0L);
+        userService.saveUser(user);
+        return new ResponseEntity<>(new Gson().toJson("REGISTERED"), HttpStatus.CREATED);
     }
 
     @GetMapping("/login")

@@ -40,4 +40,9 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllUsers(){
         return userRepository.findAll();
     }
+
+    @Override
+    public User findByEmail(String email){
+        return userRepository.findByUsername(email).orElse(null);
+    }
 }
