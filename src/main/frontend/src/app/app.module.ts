@@ -10,27 +10,46 @@ import {MatButton, MatButtonModule, MatIconModule, MatInputModule, MatSelectModu
 import {MatSliderModule} from "@angular/material";
 import {MatMenuModule} from "@angular/material";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {fas} from "@fortawesome/free-solid-svg-icons";
+import {far} from "@fortawesome/free-regular-svg-icons";
+import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     MatInputModule,
     MatSliderModule,
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(){
+    // Add an icon to the library for convenient access in other components
+    library.add(fas, far);
+  }
+}

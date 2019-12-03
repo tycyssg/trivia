@@ -1,11 +1,26 @@
-<p>login works!</p>
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
-  </mat-form-field>
+ <div class="row">
+    <div class="col">
+      <div ngbDropdown class="d-inline-block" display="dynamic" placement="bottom-right">
+        <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle><fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon> Login</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownForm1" >
+          <form class="px-4 py-3">
+            <div class="form-group">
+              <label for="exampleDropdownFormEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+              <label for="exampleDropdownFormPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
+          </form>
+          <div class="dropdown-divider"></div>
+          <button ngbDropdownItem>New around here? Sign up</button>
+          <button ngbDropdownItem>Forgot password?</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Leave a comment"></textarea>
-  </mat-form-field>
-</form>
-<app-register></app-register>
+
+

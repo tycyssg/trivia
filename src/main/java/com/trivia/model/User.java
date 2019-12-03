@@ -3,6 +3,7 @@ package com.trivia.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 
 @Data
@@ -14,6 +15,8 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    @Email
+    private String email;
     private String password;
 
     @Enumerated(EnumType.STRING)
