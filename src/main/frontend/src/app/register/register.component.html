@@ -1,5 +1,14 @@
 <div class="card bg-light">
+
+
   <article class="card-body mx-auto" style="max-width: 400px;">
+    <div class="alert alert-success" role="alert" *ngIf="success">
+      {{success}}
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+      {{error}}
+    </div>
+
     <h4 class="card-title mt-3 text-center">Create Account</h4>
     <p class="text-center">Get started with your trivia account</p>
     <p class="divider-text">

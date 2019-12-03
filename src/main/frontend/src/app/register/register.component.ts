@@ -19,6 +19,8 @@ export class RegisterComponent implements OnInit {
   showProgressBar:boolean = false;
   showProgressBarRp:boolean = false;
   passNotMatch:boolean = true;
+  error:string;
+  success:string;
 
   ngOnInit() {
 
@@ -35,9 +37,16 @@ export class RegisterComponent implements OnInit {
   register(){
     const user:UserModel = new UserModel(this.registerForm.value);
     this.userService.registerUser(user).subscribe(response =>{
-      console.log(response)
-    },error1 => console.log(error1.error))
+      this.activateNotifications(null,'Account successfully created!');
+      this.registerForm.reset();
+
+    },errorMessage => {
+      this.activateNotifications(errorMessage,null);
+    });
+
+    this.setActionsToOff();
   }
+
   showBar(){
     this.showProgressBar = true;
   }
@@ -84,5 +93,16 @@ export class RegisterComponent implements OnInit {
     })
   }
 
+  setActionsToOff() {
+    setTimeout(() => {
+      this.error = null;
+      this.success = null;
+    }, 2500);
+  }
+
+  activateNotifications(errorMessage:string,successMessage:string) {
+    this.error = errorMessage;
+    this.success = successMessage;
+  }
 
 }
