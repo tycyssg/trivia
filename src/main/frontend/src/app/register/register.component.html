@@ -8,18 +8,19 @@
 
     <form [formGroup]="registerForm" (ngSubmit)="register()">
 
-      <div class="form-group input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"> <fa-icon [icon]="['fas', 'user']"></fa-icon> </span>
-        </div>
-        <input name="" class="form-control" placeholder="Username" type="text">
+      <div class="form-group input-group mb-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <fa-icon [icon]="['fas', 'user']"></fa-icon> </span>
+          </div>
+        <input  formControlName="username" class="form-control" placeholder="Username" type="text">
       </div> <!-- form-group// -->
+
 
       <div class="form-group input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"> <fa-icon [icon]="['fas', 'envelope']"></fa-icon> </span>
         </div>
-        <input name="" class="form-control" placeholder="Email address" type="email">
+        <input formControlName="email" class="form-control" placeholder="Email address" type="email">
       </div> <!-- form-group// -->
 
       <div class="mb-2">
@@ -27,21 +28,24 @@
         <div class="input-group-prepend">
           <span class="input-group-text"> <fa-icon [icon]="['fas', 'lock']"></fa-icon> </span>
         </div>
-        <input class="form-control" placeholder="Create password" type="password">
+        <input  formControlName="password" class="form-control" placeholder="Create password" type="password" (focus)="showBar()" (blur)="hideProgressBar()">
       </div> <!-- form-group// -->
-        <ngb-progressbar [type]="" [value]="100" [striped]="true">Completed!</ngb-progressbar>
+        <ngb-progressbar *ngIf="showProgressBar" [type]="progressBarType" [value]="progressBarValue" [striped]="true" [animated]="true">{{progressBarText}}!</ngb-progressbar>
       </div>
+      <div class="mb-3">
       <div class="form-group input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"> <fa-icon [icon]="['fas', 'lock']"></fa-icon> </span>
         </div>
-        <input class="form-control" placeholder="Repeat password" type="password">
+        <input  formControlName="repeatPassword" class="form-control" placeholder="Repeat password" type="password" >
       </div> <!-- form-group// -->
-
+        <ngb-progressbar *ngIf="showProgressBarRp && registerForm.get('repeatPassword').value" type="success" [value]="progressBarValue" [striped]="true" [animated]="true">Password Match</ngb-progressbar>
+        <ngb-progressbar *ngIf="!showProgressBarRp && registerForm.get('repeatPassword').value" type="danger" [value]="100" [striped]="true" [animated]="true">Password not match</ngb-progressbar>
+      </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block"><fa-icon [icon]="['fas', 'plus']"></fa-icon> Create Account</button>
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.valid && passNotMatch"><fa-icon [icon]="['fas', 'plus']"></fa-icon> Create Account</button>
       </div> <!-- form-group// -->
-      <p class="text-center">Have an account? <a href="">Log In</a> </p>
+      <p class="text-center">Have an account? <a routerLink="login">Log In</a> </p>
     </form>
   </article>
 </div> <!-- card.// -->
