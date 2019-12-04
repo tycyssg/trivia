@@ -51,9 +51,8 @@
         <ngb-progressbar *ngIf="!showProgressBarRp && registerForm.get('repeatPassword').value" type="danger" [value]="100" [striped]="true" [animated]="true">Password not match</ngb-progressbar>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.valid && passNotMatch"><fa-icon [icon]="['fas', 'plus']"></fa-icon> Create Account</button>
+        <button type="submit" class="btn btn-danger btn-block" [disabled]="!registerForm.valid && passNotMatch"><fa-icon [icon]="['fas', 'plus']"></fa-icon> Create Account</button>
       </div> <!-- form-group// -->
-      <p class="text-center">Have an account? <a routerLink="login">Log In</a> </p>
     </form>
   </article>
 </div> <!-- card.// -->

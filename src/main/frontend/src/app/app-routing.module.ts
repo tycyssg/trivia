@@ -7,6 +7,7 @@ import {UnauthorizedComponent} from "./unauthorized/unauthorized.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
 import {PlayComponent} from "./play/play.component";
 
+import {AddComponent} from "./add/add.component";
 
 const routes: Routes = [
   {path:'', redirectTo:'home', pathMatch:'full'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'play', component: PlayComponent},
   {path:'401', component: UnauthorizedComponent},
   {path:'404', component: NotFoundComponent},
+  {path:'add', component: AddComponent},
 ];
 
 @NgModule({

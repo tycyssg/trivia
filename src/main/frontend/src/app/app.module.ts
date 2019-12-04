@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AddComponent} from "./add/add.component";
 import {MatButton, MatButtonModule, MatIconModule, MatInputModule, MatSelectModule} from "@angular/material";
 import {MatSliderModule} from "@angular/material";
 import {MatMenuModule} from "@angular/material";
@@ -25,6 +26,7 @@ import { PlayComponent } from './play/play.component';
 
 @NgModule({
   declarations: [
+    AddComponent,
     AppComponent,
     LoginComponent,
     RegisterComponent,

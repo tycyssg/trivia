@@ -1,7 +1,7 @@
  <div class="row">
     <div class="col">
       <div ngbDropdown class="d-inline-block" display="dynamic" placement="bottom-right">
-        <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle><fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon> Login</button>
+        <button class="btn btn-outline-danger" id="dropdownForm1" ngbDropdownToggle><fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon> Login</button>
         <div ngbDropdownMenu aria-labelledby="dropdownForm1" >
           <form class="px-4 py-3" [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="form-group">
@@ -12,11 +12,10 @@
               <label for="passwordId">Password</label>
               <input type="password" class="form-control" id="passwordId" placeholder="Password" formControlName="password">
             </div>
-            <button type="submit" class="btn btn-primary"><fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon> Sign in</button>
+            <button type="submit" class="btn btn-danger"><fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon> Sign in</button>
           </form>
           <div class="dropdown-divider"></div>
-          <a ngbDropdownItem routerLink="register">New around here? Sign up</a>
-          <button ngbDropdownItem>Forgot password?</button>
+          <button ngbDropdownItem routerLink="register" class="btn btn-danger">New around here? Sign up</button>
         </div>
       </div>
     </div>
