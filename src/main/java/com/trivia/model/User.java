@@ -17,7 +17,10 @@ public class User implements Serializable {
     private String username;
     @Email
     private String email;
+
     private String password;
+    @Transient
+    private String repeatPassword;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -25,4 +28,7 @@ public class User implements Serializable {
 
     @Transient
     private String token;
+
+    @Transient
+    private Long tokenExpirationDate;
 }

@@ -18,6 +18,9 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { NotFoundComponent } from './not-found/not-found.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { PlayComponent } from './play/play.component';
 
 
 @NgModule({
@@ -26,7 +29,10 @@ import {HttpClientModule} from "@angular/common/http";
     LoginComponent,
     RegisterComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    NotFoundComponent,
+    UnauthorizedComponent,
+    PlayComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import com.trivia.model.Role;
 import com.trivia.model.User;
 import com.trivia.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,8 +21,9 @@ public class UserController {
 
 
     private final JwtTokenProvider jwtTokenProvider;
-
     private final UserService userService;
+    @Value("${app.jwt.expiration-in-ms}")
+    private Long jwtExpirationInMs;
 
     @Autowired
     public UserController(JwtTokenProvider jwtTokenProvider, UserService userService) {
@@ -45,6 +47,7 @@ public class UserController {
 
     @GetMapping("/login")
     public ResponseEntity<?> login(Principal principal){
+
         if(principal == null){
             //This should be ok http status because this will be used for logout path.
             return ResponseEntity.ok(principal);
@@ -52,6 +55,7 @@ public class UserController {
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
         User user = userService.findByUsername(authenticationToken.getName());
         user.setToken(jwtTokenProvider.generateToken(authenticationToken));
+        user.setTokenExpirationDate(jwtExpirationInMs);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
