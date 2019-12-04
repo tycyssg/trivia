@@ -15,9 +15,10 @@ export class UserService {
   private tokenExpirationTimer: any;
 
   private readonly urls = {
-    register: "/api/registration",
-    logout: "/api/logout",
-    login: "/api/login",
+    register: "/api/user/registration",
+    logout: "/api/user/logout",
+    login: "/api/user/login",
+    tst: "/api/auth/test",
   };
 
   constructor(private httpClient:HttpClient,private router:Router) { }
@@ -34,9 +35,9 @@ export class UserService {
 
 
   login(user:UserModel) {
-  console.log(user);
     const headers = new HttpHeaders(user ? {
-      authorization:'Basic ' + btoa(user.username + ':' + user.password)
+      authorization:'Basic ' + btoa(user.username + ':' + user.password),
+      'X-Requested-With': 'XMLHttpRequest'
     }:{});
 
     return this.httpClient
@@ -65,17 +66,13 @@ export class UserService {
 
 
   logOutRequest(): Observable<any> {
-    return this.httpClient.post(this.urls.logout, {}).pipe(
-      map(response => {
-        this.logout();
-      })
-    );
+    return this.httpClient.post(this.urls.logout, {});
   }
 
   logout() {
     this.user.next(null);
-    this.router.navigate(['/auth']);
-    localStorage.removeItem('userData');
+    this.router.navigate(['/home']);
+      localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
@@ -91,7 +88,6 @@ export class UserService {
 
 
   private handleAuthentication(resData:UserModel) {
-    console.log(resData);
     const expirationDate:number = new Date().getTime() + resData.tokenExpirationDate;
     const tokenExpire = resData.tokenExpirationDate;
     resData.tokenExpirationDate = expirationDate;
@@ -119,8 +115,12 @@ export class UserService {
         errorMessage = 'This password is not correct.';
         break;
     }
+
     return throwError(errorMessage);
   }
 
+  getAllNodesForManagePage(): Observable<string> {
+    return this.httpClient.get<string>(this.urls.tst);
+  }
 
 }

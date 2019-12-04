@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
 
     this.userService.login(new UserModel(this.loginForm.value)).subscribe(
       resData => {
-        console.log(resData);
         this.isLoading = false;
         this.router.navigate(['/play']);
       },
