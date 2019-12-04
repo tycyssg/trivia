@@ -1,0 +1,89 @@
+<div class="card bg-light">
+  <div class="mx-auto" style="max-width: 100%; min-width: 80%">
+    <br/>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+      Add Category
+    </button>
+
+    <!----------------------------------Modal------------------------------------>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add a new category.</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form>
+            <div class="modal-body">
+              <input type="text" class="form-control" id="addcategory" placeholder="Type new category here">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-danger">Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!----------------------------------End Modal------------------------------------>
+
+  <div class="card-body mx-auto" style="max-width: 100%; min-width: 40%">
+    <h4 class="card-title mt-3 text-center">Add Question</h4>
+    <p class="text-center">Fill in the fields below to add a new question!</p>
+    <form>
+      <div class="form-group">
+        <label for="category">Select the relevant category</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <fa-icon [icon]="['fas', 'bars']"></fa-icon> </span>
+          </div>
+          <select class="form-control" id="category" required="True">
+            <option value="" selected disabled hidden>Choose here</option>
+            <option>Sports</option>
+            <option>Movies</option>
+            <option>Geography</option>
+            <option>Tech</option>
+            <option>Science</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="question">Question</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <fa-icon [icon]="['fas', 'question']"></fa-icon> </span>
+          </div>
+          <input type="text" class="form-control" id="question" placeholder="Type your question here">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="answer">Answer</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <fa-icon [icon]="['fas', 'check']"></fa-icon> </span>
+          </div>
+          <input type="text" class="form-control" id="answer" placeholder="Type your answer here">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="option1">Other options</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <fa-icon [icon]="['fas', 'times']"></fa-icon> </span>
+          </div>
+          <input type="text" class="form-control" id="option1" placeholder="Option 1">
+          <br/>
+          <input type="text" class="form-control" id="option2" placeholder="Option 2">
+          <br/>
+          <input type="text" class="form-control" id="option3" placeholder="Option 3">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-danger">Submit</button>
+    </form>
+  </div>
+</div>
+
