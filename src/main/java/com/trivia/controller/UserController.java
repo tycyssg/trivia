@@ -11,12 +11,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
 
 
@@ -59,54 +65,14 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-
-//    private final ActorsService actorsService;
-//
-//    @Autowired
-//    public UserController(ActorsService actorsService) {
-//        this.actorsService = actorsService;
-//    }
-
-//    @ResponseBody
-//    @PostMapping(value = "/saveActor", consumes = "application/json", produces = "application/json")
-//    public ResponseEntity<?> saveAction(@Valid @RequestBody ActorsAvailable actor, BindingResult bindingResult) {
-//
-//        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>( "Values cannot be null", HttpStatus.BAD_REQUEST);
+//    @PostMapping("/logout")
+//    public  ResponseEntity<?> logoutPage (HttpServletRequest request, HttpServletResponse response) {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if (auth != null){
+//            new SecurityContextLogoutHandler().logout(request, response, auth);
+//            return new ResponseEntity<>(new Gson().toJson("SUCCESS"), HttpStatus.OK);
 //        }
-//        return actorsService.saveActor(actor);
-//    }
-//
-//    @ResponseBody
-//    @PostMapping(value = "/saveMultipleActors", consumes = "application/json", produces = "application/json")
-//    public ResponseEntity<?> saveMultipleActors(@Valid @RequestBody List<ActorsAvailable> actorsList, BindingResult bindingResult) {
-//
-//        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>( "Values cannot be null", HttpStatus.BAD_REQUEST);
-//        }
-//        return actorsService.saveMultipleActors(actorsList);
-//    }
-
-    @ResponseBody
-    @GetMapping(value = "/hello", produces = "application/json")
-    public ResponseEntity<?> getAllUrls() {
-        return new ResponseEntity<>(new Gson().toJson("Hello World"),HttpStatus.OK);
-    }
-
-//    @GetMapping(value = "/getUrlById", produces = "application/json")
-//    public ResponseEntity<ProjectUrl> getAllUrls(@RequestParam Integer urlId) {
-//        if(urlId == null) return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
-//        return urlsService.getUrlById(urlId);
-//    }
-//
-//
-//    @ResponseBody
-//    @DeleteMapping(value = "/deleteUrl/{urlId}", produces = "application/json")
-//    public ResponseEntity<String> deleteNode(@PathVariable Integer urlId) {
-//        if (urlId == null)
-//            return new ResponseEntity<>(new Gson().toJson("Id is not present"), HttpStatus.BAD_REQUEST);
-//
-//        return urlsService.deleteUrl(urlId);
+//        return new ResponseEntity<>(new Gson().toJson("ERROR"), HttpStatus.BAD_REQUEST);
 //    }
 
 

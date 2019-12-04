@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
   }
 
   logout(){
+    this.userService.logout();
     this.userService.logOutRequest().subscribe(response => console.log(response));
   }
 }

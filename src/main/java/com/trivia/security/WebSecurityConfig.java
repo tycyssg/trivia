@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and()
                 .authorizeRequests()
                 //These are public pages.
-                .antMatchers("/resources/**", "/error", "/api/**").permitAll()
+                .antMatchers("/resources/**", "/error", "/api/user/").permitAll()
                 //These can be reachable for just have admin role.
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/auth/**").authenticated()
@@ -51,9 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //logout will log the user out by invalidate session.
                 .logout().permitAll()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout", "POST")).and()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/api/user/logout", "POST")).and()
                 //login form and path
-                .formLogin().loginPage("/api/login").and()
+                .formLogin().loginPage("/api/user/login").and()
                 //enable basic authentication. Http header: basis username:password
                 .httpBasic().and()
                 //Cross side request forgery.
