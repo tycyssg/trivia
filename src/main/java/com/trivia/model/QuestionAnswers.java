@@ -13,6 +13,6 @@ public class QuestionAnswers implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String choice;
+    private String answerValue;
     private Long questionId;
 }

@@ -23,5 +23,7 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private QuestionDificulty questionDificulty;
 
+    private Long categoryId;
+
 
 }

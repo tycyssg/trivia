@@ -22,7 +22,9 @@ const routes: Routes = [
 
   {path:'401', component: UnauthorizedComponent},
   {path:'404', component: NotFoundComponent},
-  {path:'add', component: AddComponent},
+  {path:'add', component: AddComponent,
+    canActivate: [AuthGuard],
+    data: {roles: [Role.ADMIN]}},
 ];
 
 @NgModule({

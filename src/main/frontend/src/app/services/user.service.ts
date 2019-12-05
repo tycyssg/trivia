@@ -119,8 +119,5 @@ export class UserService {
     return throwError(errorMessage);
   }
 
-  getAllNodesForManagePage(): Observable<string> {
-    return this.httpClient.get<string>(this.urls.tst);
-  }
 
 }

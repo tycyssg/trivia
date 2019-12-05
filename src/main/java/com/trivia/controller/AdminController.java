@@ -1,24 +1,35 @@
 package com.trivia.controller;
 
 
-import com.trivia.service.UserService;
+import com.google.gson.Gson;
+import com.trivia.model.Category;
+import com.trivia.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    @Autowired
-    private UserService userService;
+    private final QuestionService questionService;
 
-    @GetMapping("/api/admin/all")
-    public ResponseEntity<?> findAllUsers(){
-        return ResponseEntity.ok(userService.findAllUsers());
+    @Autowired
+    public AdminController(QuestionService questionService) {
+        this.questionService = questionService;
+    }
+
+
+    @PostMapping("/saveCategory")
+        public ResponseEntity<?> register(@RequestBody Category category){
+
+        if(questionService.exitByName(category.getCategoryName())){
+            return new ResponseEntity<>(new Gson().toJson("CATEGORY_EXIST"), HttpStatus.CONFLICT);
+        }
+
+        questionService.saveCategory(category);
+        return new ResponseEntity<>(new Gson().toJson("SAVED"), HttpStatus.CREATED);
     }
 }

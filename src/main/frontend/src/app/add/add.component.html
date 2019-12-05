@@ -41,13 +41,27 @@
           <div class="input-group-prepend">
             <span class="input-group-text"> <fa-icon [icon]="['fas', 'bars']"></fa-icon> </span>
           </div>
-          <select class="form-control" id="category" required="True">
+          <select class="form-control" id="category">
             <option value="" selected disabled hidden>Choose here</option>
             <option>Sports</option>
             <option>Movies</option>
             <option>Geography</option>
             <option>Tech</option>
             <option>Science</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="category">Select the question difficulty!</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <fa-icon [icon]="['fas', 'bars']"></fa-icon> </span>
+          </div>
+          <select class="form-control" id="difficulty">
+            <option value="" selected disabled hidden>Choose here</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
           </select>
         </div>
       </div>
