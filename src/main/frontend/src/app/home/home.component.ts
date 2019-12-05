@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   images = [700, 533, 807, 124].map((n) => `https://picsum.photos/id/${n}/900/500`);
   constructor(config: NgbCarouselConfig) {
     // customize default values of carousels used by this component tree
-    config.interval = 10000;
+    config.interval = 5000;
     config.wrap = true;
     config.keyboard = false;
     config.pauseOnHover = false;
