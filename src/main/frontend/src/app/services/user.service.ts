@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {UserModel} from "../models/user.model";
 import {BehaviorSubject, Observable, throwError} from "rxjs";
 import {catchError, map, tap} from "rxjs/operators";
-import {Role} from "../models/role.enum";
+
 import {Router} from "@angular/router";
 
 @Injectable({

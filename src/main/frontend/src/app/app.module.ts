@@ -22,6 +22,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { PlayComponent } from './play/play.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { PlayComponent } from './play/play.component';
     HomeComponent,
     NotFoundComponent,
     UnauthorizedComponent,
-    PlayComponent
+    PlayComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

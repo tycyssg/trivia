@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  isLoginMode = true;
   isLoading = false;
   error: string = null;
 

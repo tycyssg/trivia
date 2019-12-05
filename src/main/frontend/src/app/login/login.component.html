@@ -1,9 +1,15 @@
  <div class="row">
     <div class="col">
+
       <div ngbDropdown class="d-inline-block" display="dynamic" placement="bottom-right">
         <button class="btn btn-outline-danger" id="dropdownForm1" ngbDropdownToggle><fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon> Login</button>
         <div ngbDropdownMenu aria-labelledby="dropdownForm1" >
-          <form class="px-4 py-3" [formGroup]="loginForm" (ngSubmit)="login()">
+
+          <div *ngIf="isLoading" style="text-align: center;">
+            <app-loading-spinner></app-loading-spinner>
+          </div>
+
+          <form class="px-4 py-3" [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!isLoading">
             <div class="form-group">
               <label for="usernameId">Your Username</label>
               <input type="text" class="form-control" id="usernameId" placeholder="Username" formControlName="username">
