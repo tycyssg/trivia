@@ -25,6 +25,6 @@
     </ul>
 
   <app-login *ngIf="!isAuthenticated"></app-login>
-  <button class="btn btn-outline-danger " type="button" *ngIf="isAuthenticated" (click)="logout()"><fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon> Logout</button>
+  <button class="btn btn-outline-danger" type="button" *ngIf="isAuthenticated" (click)="logout()"><fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon> Logout</button>
   </div>
 </nav>
