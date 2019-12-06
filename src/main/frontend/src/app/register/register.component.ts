@@ -42,9 +42,9 @@ export class RegisterComponent implements OnInit {
 
     },errorMessage => {
       this.activateNotifications(errorMessage,null);
-    });
+    },() => this.setActionsToOff());
 
-    this.setActionsToOff();
+
   }
 
   showBar(){

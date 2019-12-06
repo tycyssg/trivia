@@ -5,9 +5,4 @@ export class QuestionsAnswerModel {
     questionId: number;
 
 
-  constructor(init?: Partial<QuestionsAnswerModel>) {
-    Object.assign(this, init);
-  }
-
-
 }

@@ -18,11 +18,13 @@ import {far} from "@fortawesome/free-regular-svg-icons";
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { PlayComponent } from './play/play.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import {AuthInterceptorService} from "./services/auth-interceptor.service";
+import {MatTabsModule} from "@angular/material";
 
 
 @NgModule({
@@ -52,9 +54,16 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatTabsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

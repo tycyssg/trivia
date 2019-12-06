@@ -2,12 +2,15 @@ package com.trivia.controller;
 
 
 import com.google.gson.Gson;
+import com.trivia.dto.FullQuestionDTO;
 import com.trivia.model.Category;
 import com.trivia.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -22,14 +25,29 @@ public class AdminController {
     }
 
 
-    @PostMapping("/saveCategory")
-        public ResponseEntity<?> register(@RequestBody Category category){
+        @PostMapping("/saveCategory")
+        public ResponseEntity<?> saveCategory(@RequestBody Category category){
 
         if(questionService.exitByName(category.getCategoryName())){
             return new ResponseEntity<>(new Gson().toJson("CATEGORY_EXIST"), HttpStatus.CONFLICT);
         }
 
-        questionService.saveCategory(category);
-        return new ResponseEntity<>(new Gson().toJson("SAVED"), HttpStatus.CREATED);
+        return new ResponseEntity<>(questionService.saveCategory(category), HttpStatus.CREATED);
     }
+
+
+    @PostMapping("/saveQuestion")
+    public ResponseEntity<?> saveQuestion(@RequestBody Category category){
+        return questionService.saveQuestion(category);
+    }
+
+    @ResponseBody
+    @DeleteMapping(value = "/deleteQuestion/{questionId}", produces = "application/json")
+    public ResponseEntity<String> deleteQuestion(@PathVariable Long questionId) {
+        if (questionId == null)
+            return new ResponseEntity<>(new Gson().toJson("Id is not present"), HttpStatus.BAD_REQUEST);
+
+        return questionService.deleteQuestion(questionId);
+    }
+
 }

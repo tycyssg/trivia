@@ -1,6 +1,6 @@
 package com.trivia.model;
 
-import com.trivia.utils.Utilities.QuestionDificulty;
+import com.trivia.utils.Utilities.QuestionDifficulty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,9 +21,18 @@ public class Question {
     private String correctAnswer;
 
     @Enumerated(EnumType.STRING)
-    private QuestionDificulty questionDificulty;
+    private QuestionDifficulty questionDifficulty;
 
     private Long categoryId;
 
 
+    public Question() {
+    }
+
+    public Question(String question, List<QuestionAnswers> questionAnswers, String correctAnswer, QuestionDifficulty questionDifficulty) {
+        this.question = question;
+        this.questionAnswers = questionAnswers;
+        this.correctAnswer = correctAnswer;
+        this.questionDifficulty = questionDifficulty;
+    }
 }

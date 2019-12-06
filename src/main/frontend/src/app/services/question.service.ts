@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {throwError} from "rxjs";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {Observable, throwError} from "rxjs";
 
 import {Router} from "@angular/router";
+import {CategoryModel} from "../models/category.model";
+import {catchError, tap} from "rxjs/operators";
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +15,50 @@ export class QuestionService {
 
 
   private readonly urls = {
-    register: "/api/admin/saveCategory",
+    saveCategory: "/api/admin/saveCategory",
+    getAllCategories: "/api/auth/getAllCategories",
+    saveQuestion: "/api/admin/saveQuestion",
+    deleteQuestion: "/api/admin/deleteQuestion",
   };
 
   constructor(private httpClient:HttpClient,private router:Router) { }
 
-  // registerUser(user: UserModel): Observable<string> {
-  //   return this.httpClient.post<string>(this.urls.register, user, {
-  //     headers: new HttpHeaders({
-  //       "Content-Type": "application/json;charset=utf-8",
-  //       Accept: "application/json",
-  //       responseType: "json",
-  //     }),
-  //   }).pipe(catchError(this.handleError));
-  // }
 
+  saveCategory(category: CategoryModel): Observable<CategoryModel> {
+    return this.httpClient.post<CategoryModel>(this.urls.saveCategory, category, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json;charset=utf-8",
+        Accept: "application/json",
+        responseType: "json",
+      }),
+    }).pipe(catchError(this.handleError));
+  }
 
+  saveQuestion(question: CategoryModel): Observable<CategoryModel> {
+    return this.httpClient.post<CategoryModel>(this.urls.saveQuestion, question, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json;charset=utf-8",
+        Accept: "application/json",
+        responseType: "json",
+      }),
+    }).pipe(catchError(this.handleError));
+  }
+
+    getAllCategories():Observable<CategoryModel[]>{
+    return this.httpClient
+      .get<CategoryModel[]>(this.urls.getAllCategories,)
+      .pipe(
+        catchError(this.handleError)
+      );
+    }
+
+    getAllQuestions():Observable<CategoryModel[]>{
+    return this.httpClient
+      .get<CategoryModel[]>(this.urls.getAllCategories,)
+      .pipe(
+        catchError(this.handleError)
+      );
+    }
 
 
   private handleError(errorRes: HttpErrorResponse) {
@@ -35,20 +67,19 @@ export class QuestionService {
       return throwError(errorMessage);
     }
     switch (errorRes.error) {
-      case 'USERNAME_EXIST': errorMessage = 'The username already exist!';
+      case 'CATEGORY_EXIST': errorMessage = 'The category already exist!';
         break;
-      case 'EMAIL_EXIST': errorMessage = 'The email already exist!';
-        break;
-      case 'USER_NOT_FOUND':
-        errorMessage = 'This user does not exist.';
-        break;
-      case 'INVALID_PASSWORD':
-        errorMessage = 'This password is not correct.';
+      case 'NO_CATEGORY_SAVED': errorMessage = 'There is no category. Please add at least one category!';
         break;
     }
 
     return throwError(errorMessage);
   }
 
+
+  deleteQuestion(questionId:number){
+    const url = `${this.urls.deleteQuestion}/${questionId}`;
+    return this.httpClient.delete<string>(url);
+  }
 
 }

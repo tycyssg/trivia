@@ -1,4 +1,4 @@
-import {QuestionDificultyEnum} from "./questionDificulty.enum";
+import {QuestionDifficultyEnum} from "./questionDifficulty.enum";
 import {QuestionsAnswerModel} from "./questionsAnswer.model";
 
 
@@ -8,7 +8,7 @@ export class QuestionsModel {
     question: string;
     correctAnswer:string;
     questionAnswers:QuestionsAnswerModel[];
-    questionDificulty:QuestionDificultyEnum;
+    questionDifficulty:QuestionDifficultyEnum;
     categoryId:number;
 
   constructor(init?: Partial<QuestionsModel>) {

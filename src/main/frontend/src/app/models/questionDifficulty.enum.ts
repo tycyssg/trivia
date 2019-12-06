@@ -1,4 +1,4 @@
-export enum QuestionDificultyEnum {
+export enum QuestionDifficultyEnum {
   EASY = "EASY",
   MEDIUM = "MEDIUM",
   HARD = "HARD"

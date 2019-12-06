@@ -1,3 +1,6 @@
+<div *ngIf="contentLoading" class="container d-flex align-items-center justify-content-center"><app-loading-spinner class="mt-5"></app-loading-spinner></div>
+
+<div *ngIf="!contentLoading">
 <div class="card bg-light">
   <div class="mx-auto" style="max-width: 100%; min-width: 80%">
     <br/>
@@ -6,23 +9,32 @@
     </button>
 
     <!----------------------------------Modal------------------------------------>
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
       <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div class="modal-content p-3">
+
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Add a new category.</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form>
+
+          <div class="alert alert-danger text-center w-100" role="alert" *ngIf="categoryError">
+            {{categoryError}}
+          </div>
+          <div class="alert alert-success text-center w-100" role="alert" *ngIf="categorySuccess">
+            {{categorySuccess}}
+          </div>
+
+          <form [formGroup]="categoryForm" (ngSubmit)="saveCategory()" >
             <div class="modal-body">
-              <input type="text" class="form-control" id="addcategory" placeholder="Type new category here">
+              <input type="text" class="form-control" id="addcategory" formControlName="categoryName" placeholder="Type new category here">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-danger">Add</button>
+              <button type="submit" class="btn btn-danger" [disabled]="!categoryForm.valid">Add</button>
             </div>
           </form>
         </div>
@@ -32,22 +44,27 @@
   <!----------------------------------End Modal------------------------------------>
 
   <div class="card-body mx-auto" style="max-width: 100%; min-width: 40%">
+
+    <div class="alert alert-danger text-center w-100" role="alert" *ngIf="questionError">
+      {{questionError}}
+    </div>
+    <div class="alert alert-success text-center w-100" role="alert" *ngIf="questionSuccess">
+      {{questionSuccess}}
+    </div>
+
     <h4 class="card-title mt-3 text-center">Add Question</h4>
     <p class="text-center">Fill in the fields below to add a new question!</p>
-    <form>
+
+    <form [formGroup]="questionForm" (ngSubmit)="saveQuestion()">
       <div class="form-group">
         <label for="category">Select the relevant category</label>
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text"> <fa-icon [icon]="['fas', 'bars']"></fa-icon> </span>
           </div>
-          <select class="form-control" id="category">
-            <option value="" selected disabled hidden>Choose here</option>
-            <option>Sports</option>
-            <option>Movies</option>
-            <option>Geography</option>
-            <option>Tech</option>
-            <option>Science</option>
+          <select class="form-control" id="category" formControlName="categoryId" >
+            <option value="-1" [disabled]="true">Select a category for the question!</option>
+            <option  *ngFor="let cat of categoryList" value="{{cat.id}}">{{cat.categoryName | uppercase}}</option>
           </select>
         </div>
       </div>
@@ -57,11 +74,11 @@
           <div class="input-group-prepend">
             <span class="input-group-text"> <fa-icon [icon]="['fas', 'bars']"></fa-icon> </span>
           </div>
-          <select class="form-control" id="difficulty">
+          <select class="form-control" id="difficulty" formControlName="questionDifficulty">
             <option value="" selected disabled hidden>Choose here</option>
-            <option>Easy</option>
-            <option>Medium</option>
-            <option>Hard</option>
+            <option value="EASY">Easy</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HARD">Hard</option>
           </select>
         </div>
       </div>
@@ -71,7 +88,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text"> <fa-icon [icon]="['fas', 'question']"></fa-icon> </span>
           </div>
-          <input type="text" class="form-control" id="question" placeholder="Type your question here">
+          <input type="text" class="form-control" id="question" placeholder="Type your question here" formControlName="question">
         </div>
       </div>
       <div class="form-group">
@@ -80,7 +97,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text"> <fa-icon [icon]="['fas', 'check']"></fa-icon> </span>
           </div>
-          <input type="text" class="form-control" id="answer" placeholder="Type your answer here">
+          <input type="text" class="form-control" id="answer" placeholder="Type your answer here" formControlName="answer">
         </div>
       </div>
       <div class="form-group">
@@ -89,15 +106,53 @@
           <div class="input-group-prepend">
             <span class="input-group-text"> <fa-icon [icon]="['fas', 'times']"></fa-icon> </span>
           </div>
-          <input type="text" class="form-control" id="option1" placeholder="Option 1">
+          <input type="text" class="form-control" id="option1" placeholder="Option 1" formControlName="optionOne">
           <br/>
-          <input type="text" class="form-control" id="option2" placeholder="Option 2">
+          <input type="text" class="form-control" id="option2" placeholder="Option 2" formControlName="optionTwo">
           <br/>
-          <input type="text" class="form-control" id="option3" placeholder="Option 3">
+          <input type="text" class="form-control" id="option3" placeholder="Option 3" formControlName="optionThree">
         </div>
       </div>
       <button type="submit" class="btn btn-danger">Submit</button>
     </form>
+
   </div>
+
 </div>
 
+
+
+<div class="container-fluid mb-5 mt-3">
+  <h3 class="text-primary text-center text-capitalize">Questions List</h3>
+  <hr>
+
+  <mat-tab-group>
+    <mat-tab *ngFor="let cat of categoryList" label="{{cat.categoryName | uppercase}}">
+      <div class="question-wrapper container-fluid mt-2">
+        <div class="box t">#</div>
+        <div class="box t">Difficulty</div>
+        <div class="box t">Question</div>
+        <div class="box t">Answer</div>
+        <div class="box t">Option 1</div>
+        <div class="box t">Option 2</div>
+        <div class="box t">Option 3</div>
+        <div class="box t">Option 4</div>
+        <div class="box t"><fa-icon [icon]="['fas', 'pen']"></fa-icon><span class="ml-1">Edit</span></div>
+        <div class="box t"><fa-icon [icon]="['fas', 'trash']"></fa-icon><span class="ml-1">Delete</span></div>
+      </div>
+
+      <hr>
+
+      <div class="question-wrapper container-fluid" *ngFor="let question of cat.questions;let i = index">
+      <div class="box">{{i+1}}</div>
+      <div class="box">{{question.questionDifficulty}}</div>
+      <div class="box">{{question.question}}</div>
+      <div class="box">{{question.correctAnswer}}</div>
+      <div class="box" *ngFor="let answer of question.questionAnswers">{{answer.answerValue}}</div>
+      <div class="box"><button class="btn btn-primary btn-sm" type="button"><fa-icon [icon]="['fas', 'pen']"></fa-icon> Edit</button></div>
+      <div class="box"><button class="btn btn-danger btn-sm" type="button" (click)="onDeleteQuestion(cat.questions,question.id)"><fa-icon [icon]="['fas', 'trash']"></fa-icon> Delete</button></div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+</div>

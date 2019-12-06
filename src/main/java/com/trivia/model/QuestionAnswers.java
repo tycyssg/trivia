@@ -15,4 +15,11 @@ public class QuestionAnswers implements Serializable {
     private Long id;
     private String answerValue;
     private Long questionId;
+
+    public QuestionAnswers() {
+    }
+
+    public QuestionAnswers(String answerValue) {
+        this.answerValue = answerValue;
+    }
 }
