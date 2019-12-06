@@ -2,38 +2,47 @@
 <ngb-carousel *ngIf="images">
   <ng-template ngbSlide>
     <div class="picsum-img-wrapper" >
-      <img style="width:100%;height:400px"  src="../../assets/images/1.jpg" alt="Random first slide">
+      <img style="width:100%;height:600px"  src="../../assets/images/1.jpg" alt="Random first slide">
     </div>
     <div class="carousel-caption">
-      <h3>10 seconds between slides...</h3>
-      <p>This carousel uses customized default values.</p>
+      <h1 class="display-2">Geography</h1>
+      <h3 style="font-weight: normal;">Without Geography you are nowhere.</h3>
     </div>
   </ng-template>
   <ng-template ngbSlide>
     <div class="picsum-img-wrapper">
-      <img style="width:100%;height:400px" src="../../assets/images/1.jpg" alt="Random second slide">
+      <img style="width:100%;height:600px" src="../../assets/images/2.jpg" alt="Random second slide">
     </div>
     <div class="carousel-caption">
-      <h3>No mouse events...</h3>
-      <p>This carousel doesn't pause or resume on mouse events</p>
+      <h1 class="display-2">History</h1>
+      <h3 style="font-weight: normal;">Revolutions are the locomotives of history.</h3>
     </div>
   </ng-template>
   <ng-template ngbSlide>
     <div class="picsum-img-wrapper">
-      <img style="width:100%;height:400px"[src]="images[2]"  alt="Random third slide">
+      <img style="width:100%;height:600px" src="../../assets/images/3.jpg"  alt="Random third slide">
     </div>
     <div class="carousel-caption">
-      <h3>No keyboard...</h3>
-      <p>This carousel uses customized default values.</p>
+      <h1 class="display-2">Sports</h1>
+      <h3 style="font-weight: normal;">The only way to prove you are good at sports is to lose.</h3>
     </div>
   </ng-template>
   <ng-template ngbSlide>
     <div class="picsum-img-wrapper">
-      <img style="width:100%;height:400px"[src]="images[3]" alt="Random fourth slide">
+      <img style="width:100%;height:600px" src="../../assets/images/4.jpg" alt="Random fourth slide">
     </div>
     <div class="carousel-caption">
-      <h3>And no wrap after last slide.</h3>
-      <p>This carousel uses customized default values.</p>
+      <h1 class="display-2">Knowledge</h1>
+      <h3 style="font-weight: normal;">Knowledge is of no value unless you put int into practice.</h3>
+    </div>
+  </ng-template>
+  <ng-template ngbSlide>
+    <div class="picsum-img-wrapper">
+      <img style="width:100%;height:600px" src="../../assets/images/5.jpg" alt="Random fourth slide">
+    </div>
+    <div class="carousel-caption">
+
+      <p class="display-4">And many more topics to explore...</p>
     </div>
   </ng-template>
 </ngb-carousel>
