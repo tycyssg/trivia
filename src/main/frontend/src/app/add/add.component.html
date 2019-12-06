@@ -150,7 +150,7 @@
       <div class="box">{{question.correctAnswer}}</div>
       <div class="box" *ngFor="let answer of question.questionAnswers">{{answer.answerValue}}</div>
       <div class="box"><button class="btn btn-primary btn-sm" type="button"><fa-icon [icon]="['fas', 'pen']"></fa-icon> Edit</button></div>
-      <div class="box"><button class="btn btn-danger btn-sm" type="button" (click)="onDeleteQuestion(cat.questions,question.id)"><fa-icon [icon]="['fas', 'trash']"></fa-icon> Delete</button></div>
+      <div class="box"><button class="btn btn-danger btn-sm" type="button" (click)="onDeleteQuestion(cat,cat.questions,question.id)"><fa-icon [icon]="['fas', 'trash']"></fa-icon> Delete</button></div>
       </div>
     </mat-tab>
   </mat-tab-group>

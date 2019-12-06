@@ -43,9 +43,9 @@ public class AdminController {
 
     @ResponseBody
     @DeleteMapping(value = "/deleteQuestion/{questionId}", produces = "application/json")
-    public ResponseEntity<String> deleteQuestion(@PathVariable Long questionId) {
+    public ResponseEntity<?> deleteQuestion(@PathVariable Long questionId) {
         if (questionId == null)
-            return new ResponseEntity<>(new Gson().toJson("Id is not present"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Gson().toJson(new Gson().toJson("Id is not present")), HttpStatus.BAD_REQUEST);
 
         return questionService.deleteQuestion(questionId);
     }

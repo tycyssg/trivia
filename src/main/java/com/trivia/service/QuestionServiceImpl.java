@@ -72,7 +72,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
 
         questionRepository.deleteById(questionId);
-        return new ResponseEntity<>("DELETED", HttpStatus.OK);
+        return new ResponseEntity<>(new Gson().toJson("DELETED"), HttpStatus.OK);
     }
 
 

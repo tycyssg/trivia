@@ -118,11 +118,11 @@ export class AddComponent implements OnInit {
     }, 2500);
   }
 
-  onDeleteQuestion(questions:QuestionsModel[],questionId:number){
+  onDeleteQuestion(category:CategoryModel,questions:QuestionsModel[],questionId:number){
 
     this.questionService.deleteQuestion(questionId).subscribe(resp =>{
-
-      questions.splice(questions.indexOf(questions.find(q => q.id === questionId)),1);
+      const indexOfCat = this.categoryList.indexOf(category);
+      this.categoryList[indexOfCat].questions = questions.splice(questions.indexOf(questions.find(q => q.id === questionId)),1);
 
       this.questionSuccess = "Question Successfully deleted!"
     },error1 => this.questionError = error1);
