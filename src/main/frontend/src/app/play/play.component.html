@@ -24,7 +24,7 @@
           </div>
           <div class="card-body">
 
-              <div class="answers-wrapper mx-auto justify-content-around" >
+              <div class="answers-wrapper justify-content-around" >
                 <div class="box-ans"  *ngFor="let answer of selectedQuestion.questionAnswers"><button type="button" class="btn btn-outline-danger btn-lg btn-block" (click)="onAnswer(answer.answerValue)">{{answer.answerValue}}</button></div>
               </div>
 
