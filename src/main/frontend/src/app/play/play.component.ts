@@ -69,7 +69,7 @@ export class PlayComponent implements OnInit,OnDestroy {
     this.currentPlayingQuestions = cat.questions;
     this.selectedQuestion = this.currentPlayingQuestions[this.selectedQuestionIndex];
     this.selectedQuestion.questionAnswers = this.doShuffle();
-    this.answerTimer();
+    //this.answerTimer();
   }
 
   onAnswer(answerValue: string) {
@@ -92,14 +92,14 @@ export class PlayComponent implements OnInit,OnDestroy {
   answerTimer(){
     this.questionExpirationTimer = interval(1000).subscribe(x => {
       if(this.expirationTime == 0){
-        this.questionExpirationTimer.unsubscribe();
+        //this.questionExpirationTimer.unsubscribe();
       }
       this.expirationTime--
     });
   }
 
   ngOnDestroy(): void {
-    this.questionExpirationTimer.unsubscribe();
+    //this.questionExpirationTimer.unsubscribe();
   }
 
 }
