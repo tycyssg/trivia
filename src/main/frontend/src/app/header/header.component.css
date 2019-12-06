@@ -1,0 +1,7 @@
+.navbar-nav > a:active {
+  color: #d9534f !important;
+  background-color: chartreuse;
+}
+.nav-item > a:hover {
+  color: #d9534f !important;
+}
