@@ -1,1 +1,39 @@
-<p>play works!</p>
+<div *ngIf="contentLoading" class="container d-flex align-items-center justify-content-center"><app-loading-spinner class="mt-5"></app-loading-spinner></div>
+
+<div class="container-fluid">
+<div class="alert alert-danger text-center w-100" role="alert" *ngIf="emptyCategories">
+  {{emptyCategories}}
+</div>
+
+  <div class="play-wrapper mt-2" *ngIf="!contentLoading">
+
+    <div class="box">
+      <button class="btn btn-danger text-center btn-block"><fa-icon [icon]="['fas', 'shapes']"></fa-icon> Categories</button>
+
+      <button class="btn btn-outline-danger text-center btn-block" *ngFor="let cat of categoryList" (click)="selectCategory(cat)">{{cat.categoryName}}</button>
+    </div>
+
+    <div class="box p-4">
+
+      <mat-card class="border border-light w-100 rounded d-question" *ngIf="currentPlayingQuestions.length > 0">
+
+        <div class="card">
+          <div class="card-header">
+            {{selectedQuestion.question}}
+            {{expirationTime}}
+          </div>
+          <div class="card-body">
+
+              <div class="answers-wrapper">
+                <div class="box-ans" *ngFor="let answer of selectedQuestion.questionAnswers"><button class="btn btn-danger-outline btn-sm" (click)="onAnswer(answer.answerValue)">{{answer.answerValue}}</button></div>
+              </div>
+
+          </div>
+        </div>
+
+
+      </mat-card>
+
+    </div>
+  </div>
+</div>

@@ -69,7 +69,7 @@ export class QuestionService {
     switch (errorRes.error) {
       case 'CATEGORY_EXIST': errorMessage = 'The category already exist!';
         break;
-      case 'NO_CATEGORY_SAVED': errorMessage = 'There is no category. Please add at least one category!';
+      case 'NO_CATEGORY_SAVED': errorMessage = 'OOPS! There is no category saved!';
         break;
     }
 

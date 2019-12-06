@@ -7,7 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AddComponent} from "./add/add.component";
-import {MatButton, MatButtonModule, MatIconModule, MatInputModule, MatSelectModule} from "@angular/material";
+import {
+  MatButton,
+  MatButtonModule, MatCardModule, MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatSelectModule
+} from "@angular/material";
 import {MatSliderModule} from "@angular/material";
 import {MatMenuModule} from "@angular/material";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -55,7 +62,10 @@ import {MatTabsModule} from "@angular/material";
     MatIconModule,
     MatSelectModule,
     FontAwesomeModule,
-    MatTabsModule
+    MatTabsModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatCardModule
   ],
   providers: [
     {

@@ -1,0 +1,19 @@
+.play-wrapper {
+  display: grid;
+  grid-template-columns: 17% 82%;
+  grid-gap: 1px;
+}
+
+.d-question{
+  width: 92%;
+  margin-left:15px;
+  padding: 10px;
+  height: 550px;
+}
+
+
+.answers-wrapper {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-gap: 10px;
+}

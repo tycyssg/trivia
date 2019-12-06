@@ -47,7 +47,7 @@ public class AuthController {
 
         List<Category> categoryList= questionService.getAllCategories();
         if(categoryList.isEmpty()){
-            return new ResponseEntity<>(new Gson().toJson("NO_CATEGORY_SAVED"), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new Gson().toJson("NO_CATEGORY_SAVED"), HttpStatus.NO_CONTENT);
         }
 
         return new ResponseEntity<>(categoryList, HttpStatus.OK);

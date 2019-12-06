@@ -64,8 +64,12 @@ export class AddComponent implements OnInit {
 
   loadingAllContent(){
     this.contentLoading = true;
+
     this.questionService.getAllCategories().subscribe(categories =>{
       this.categoryList = categories;
+      this.contentLoading = false;
+    },error1 => {
+      this.questionError = error1;
       this.contentLoading = false;
     });
   }
@@ -118,11 +122,11 @@ export class AddComponent implements OnInit {
     }, 2500);
   }
 
-  onDeleteQuestion(category:CategoryModel,questions:QuestionsModel[],questionId:number){
+  onDeleteQuestion(questions:QuestionsModel[],questionId:number){
 
     this.questionService.deleteQuestion(questionId).subscribe(resp =>{
-      const indexOfCat = this.categoryList.indexOf(category);
-      this.categoryList[indexOfCat].questions = questions.splice(questions.indexOf(questions.find(q => q.id === questionId)),1);
+
+      questions.splice(questions.indexOf(questions.find(q => q.id === questionId)),1);
 
       this.questionSuccess = "Question Successfully deleted!"
     },error1 => this.questionError = error1);
