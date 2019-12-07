@@ -42,12 +42,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and()
                 .authorizeRequests()
                 //These are public pages.
-                .antMatchers("/resources/**", "/error", "/api/user/**").permitAll()
+                .antMatchers("/resources/**", "/error", "/api/user/**","/*","/assets/images/**").permitAll()
                 //These can be reachable for just have admin role.
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/auth/**").authenticated()
                 //all remaining paths should need authentication.
-                .anyRequest().fullyAuthenticated()
+                .anyRequest().authenticated()
                 .and()
                 //logout will log the user out by invalidate session.
                 .logout().permitAll()
