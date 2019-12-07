@@ -20,7 +20,9 @@
         <div class="card">
           <div class="card-header d-flex justify-content-between">
             <h4 style="font-weight: normal;">{{selectedQuestion.question}}</h4>
-            <div class="float-right display-4">{{expirationTime}}</div>
+            <div class="float-right display-4 text-white bg-success p-2" *ngIf="selectedQuestion.questionDifficulty === 'EASY'" >{{expirationTime}}</div>
+            <div class="float-right display-4 text-white bg-warning p-2" *ngIf="selectedQuestion.questionDifficulty === 'MEDIUM'">{{expirationTime}}</div>
+            <div class="float-right display-4 text-white bg-danger p-2" *ngIf="selectedQuestion.questionDifficulty === 'HARD'">{{expirationTime}}</div>
           </div>
           <div class="card-body">
 

@@ -69,7 +69,7 @@ export class PlayComponent implements OnInit,OnDestroy {
     this.currentPlayingQuestions = cat.questions;
     this.selectedQuestion = this.currentPlayingQuestions[this.selectedQuestionIndex];
     this.selectedQuestion.questionAnswers = this.doShuffle();
-    //this.answerTimer();
+    this.answerTimer();
   }
 
   onAnswer(answerValue: string) {
@@ -82,19 +82,30 @@ export class PlayComponent implements OnInit,OnDestroy {
   }
 
   switchTheQuestion(){
+      this.resetTheTimer();
+
     if(this.selectedQuestionIndex == (this.currentPlayingQuestions.length-1)){
       this.selectedQuestionIndex = 0;
+      this.selectedQuestion = this.currentPlayingQuestions[this.selectedQuestionIndex];
+      this.answerTimer();
     }else{
       this.selectedQuestionIndex++;
+      this.selectedQuestion = this.currentPlayingQuestions[this.selectedQuestionIndex];
+      this.answerTimer();
     }
+  }
+
+  resetTheTimer(){
+    this.expirationTime = 15;
+    this.questionExpirationTimer.unsubscribe();
   }
 
   answerTimer(){
     this.questionExpirationTimer = interval(1000).subscribe(x => {
+      this.expirationTime--;
       if(this.expirationTime == 0){
-        //this.questionExpirationTimer.unsubscribe();
+        this.switchTheQuestion();
       }
-      this.expirationTime--
     });
   }
 
