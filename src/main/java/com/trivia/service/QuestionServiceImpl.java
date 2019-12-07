@@ -2,10 +2,9 @@ package com.trivia.service;
 
 
 import com.google.gson.Gson;
-import com.trivia.dto.FullQuestionDTO;
 import com.trivia.model.Category;
 import com.trivia.model.Question;
-import com.trivia.model.QuestionAnswers;
+import com.trivia.model.User;
 import com.trivia.repository.CategoryRepository;
 import com.trivia.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -25,11 +23,13 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final CategoryRepository categoryRepository;
     private final QuestionRepository questionRepository;
+    private final UserService userService;
 
     @Autowired
-    public QuestionServiceImpl(CategoryRepository categoryRepository, QuestionRepository questionRepository) {
+    public QuestionServiceImpl(CategoryRepository categoryRepository, QuestionRepository questionRepository, UserService userService) {
         this.categoryRepository = categoryRepository;
         this.questionRepository = questionRepository;
+        this.userService = userService;
     }
 
 
@@ -73,6 +73,19 @@ public class QuestionServiceImpl implements QuestionService {
 
         questionRepository.deleteById(questionId);
         return new ResponseEntity<>(new Gson().toJson("DELETED"), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> updateUserScore(Integer score) {
+        String username = userService.currentUser();
+
+        if(username == null)
+            return new ResponseEntity<>(new Gson().toJson("NO_USER"), HttpStatus.BAD_REQUEST);
+
+        User user = userService.findByUsername(username);
+        user.setScore(user.getScore() + score);
+
+        return new ResponseEntity<>(userService.saveUser(user).getScore(), HttpStatus.OK);
     }
 
 

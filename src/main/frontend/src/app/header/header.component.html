@@ -20,7 +20,7 @@
       </li>
 
       <li class="nav-item">
-         <a class="nav-link" routerLink="add"  routerLinkActive="active" *ngIf="isAuthenticated"><fa-icon [icon]="['fas', 'plus']"></fa-icon> Add Questions</a>
+         <a class="nav-link" routerLink="add"  routerLinkActive="active" *ngIf="isAuthenticated && itIsAdmin"><fa-icon [icon]="['fas', 'plus']"></fa-icon> Add Questions</a>
       </li>
     </ul>
 

@@ -18,7 +18,6 @@ export class UserService {
     register: "/api/user/registration",
     logout: "/api/user/logout",
     login: "/api/user/login",
-    tst: "/api/auth/test",
   };
 
   constructor(private httpClient:HttpClient,private router:Router) { }
@@ -27,6 +26,7 @@ export class UserService {
     return this.httpClient.post<string>(this.urls.register, user, {
       headers: new HttpHeaders({
         "Content-Type": "application/json;charset=utf-8",
+        'X-Requested-With': 'XMLHttpRequest',
         Accept: "application/json",
         responseType: "json",
       }),
@@ -71,8 +71,9 @@ export class UserService {
 
   logout() {
     this.user.next(null);
+    localStorage.removeItem('userData');
     this.router.navigate(['/home']);
-      localStorage.removeItem('userData');
+
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }

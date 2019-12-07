@@ -2,7 +2,6 @@ package com.trivia.controller;
 
 
 import com.google.gson.Gson;
-import com.trivia.dto.FullQuestionDTO;
 import com.trivia.model.Category;
 import com.trivia.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -49,5 +47,8 @@ public class AdminController {
 
         return questionService.deleteQuestion(questionId);
     }
+
+
+
 
 }

@@ -53,5 +53,14 @@ public class AuthController {
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
+    @PostMapping("/updateUserScore")
+    public ResponseEntity<?> saveCategory(@RequestBody Integer score){
+
+        if(score == 0){
+            return new ResponseEntity<>(new Gson().toJson("NO_SCORE"), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(questionService.updateUserScore(score), HttpStatus.CREATED);
+    }
 
 }

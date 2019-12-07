@@ -14,4 +14,5 @@ public interface QuestionService {
     List<Category> getAllCategories();
     ResponseEntity<?> saveQuestion(Category category);
     ResponseEntity<String> deleteQuestion(Long questionId);
+    ResponseEntity<?> updateUserScore(Integer score);
 }

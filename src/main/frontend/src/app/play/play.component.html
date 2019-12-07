@@ -15,6 +15,10 @@
 
     <div class="box p-4">
 
+      <mat-card *ngIf="currentPlayingQuestions.length == 0">
+        Select a category and play
+      </mat-card>
+
       <mat-card class="border border-light w-100 rounded d-question" *ngIf="currentPlayingQuestions.length > 0">
 
         <div class="card">
@@ -26,10 +30,31 @@
           </div>
           <div class="card-body">
 
-              <div class="answers-wrapper justify-content-around" >
+              <div class="answers-wrapper justify-content-center">
+                <div class="top-answer" *ngIf="showScoreAlert">
+                  <div class="alert alert-primary" role="alert">
+                    Congrats! Your answer was correct. You received {{pointsReceived}} points!
+                  </div>
+                </div>
                 <div class="box-ans"  *ngFor="let answer of selectedQuestion.questionAnswers"><button type="button" class="btn btn-outline-danger btn-lg btn-block" (click)="onAnswer(answer.answerValue)">{{answer.answerValue}}</button></div>
               </div>
 
+          </div>
+        </div>
+
+
+        <div class="card mt-4">
+          <div class="card-header d-flex justify-content-between">
+            <h4 class="text-primary text-capitalize text-center">Quick Guide!</h4>
+            <h4 class="float-right text-secondary">Current Score: {{currentScore}}</h4>
+          </div>
+          <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item">To answer a question you have to press one of the 4 above buttons.</li>
+                <li class="list-group-item">You have 15 seconds to answer to a question.</li>
+                <li class="list-group-item">Each question difficulty is being show by the timer background color (Easy:Green Medium:Yellow Hard:Red)</li>
+                <li class="list-group-item">Each level of difficulty rewards you with: 10,20 or 30 Points</li>
+              </ul>
           </div>
         </div>
 

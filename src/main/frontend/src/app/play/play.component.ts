@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {QuestionService} from "../services/question.service";
 import {CategoryModel} from "../models/category.model";
 import {QuestionsModel} from "../models/questions.model";
-import {map} from "rxjs/operators";
 import {interval, Subscription} from "rxjs";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-play',
@@ -11,6 +11,9 @@ import {interval, Subscription} from "rxjs";
   styleUrls: ['./play.component.css']
 })
 export class PlayComponent implements OnInit,OnDestroy {
+
+  questionExpirationTimer:Subscription;
+  subsUser:Subscription;
 
   categoryList:CategoryModel[] = [];
   currentPlayingQuestions:QuestionsModel[] = [];
@@ -23,21 +26,27 @@ export class PlayComponent implements OnInit,OnDestroy {
   selectedQuestionIndex:number = 0;
   selectedQuestion:QuestionsModel;
 
-  questionExpirationTimer:Subscription;
+
   expirationTime:number = 15;
 
-  constructor(private questionService:QuestionService) { }
+  private easyScore:number = 10;
+  private mediumScore:number = 20;
+  private hardScore:number = 30;
+
+  pointsReceived:number = 0;
+  showScoreAlert:boolean = false;
+  currentScore:number = 0;
+
+  constructor(private questionService:QuestionService,private userService:UserService) { }
 
   ngOnInit() {
     this.loadingAllContent();
-
   }
 
 
   doShuffle(){
 
     let currentIndex = this.selectedQuestion.questionAnswers.length, temporaryValue, randomIndex;
-
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
 
@@ -53,6 +62,8 @@ export class PlayComponent implements OnInit,OnDestroy {
 
     return this.selectedQuestion.questionAnswers;
   }
+
+
   loadingAllContent(){
     this.contentLoading = true;
     this.questionService.getAllCategories().subscribe(categories =>{
@@ -63,18 +74,37 @@ export class PlayComponent implements OnInit,OnDestroy {
       this.contentLoading = false;
     });
 
+    this.subsUser = this.userService.user.subscribe(user =>{
+      this.currentScore = user.score;
+    })
+
   }
 
+
   selectCategory(cat:CategoryModel){
+    this.resetTheTimer();
+    this.selectedQuestionIndex = 0;
+
     this.currentPlayingQuestions = cat.questions;
     this.selectedQuestion = this.currentPlayingQuestions[this.selectedQuestionIndex];
     this.selectedQuestion.questionAnswers = this.doShuffle();
     this.answerTimer();
   }
 
+
   onAnswer(answerValue: string) {
       if(this.selectedQuestion.correctAnswer === answerValue){
+
         //request to the db to update the user score
+        switch (this.selectedQuestion.questionDifficulty) {
+          case 'EASY': this.updateScore(this.easyScore);
+          break;
+          case 'MEDIUM': this.updateScore(this.mediumScore);
+          break;
+          case 'HARD': this.updateScore(this.hardScore);
+          break;
+        }
+
         this.switchTheQuestion();
       }else{
         this.switchTheQuestion();
@@ -97,7 +127,8 @@ export class PlayComponent implements OnInit,OnDestroy {
 
   resetTheTimer(){
     this.expirationTime = 15;
-    this.questionExpirationTimer.unsubscribe();
+    if(this.questionExpirationTimer)
+      this.questionExpirationTimer.unsubscribe();
   }
 
   answerTimer(){
@@ -109,8 +140,25 @@ export class PlayComponent implements OnInit,OnDestroy {
     });
   }
 
+  updateScore(score:number){
+    this.questionService.updateUserScore(score).subscribe(response =>{
+      this.pointsReceived = score;
+      this.showScoreAlert = true;
+    });
+
+    this.setActionsToOff();
+  }
+
+  setActionsToOff() {
+    setTimeout(() => {
+      this.pointsReceived = 0;
+      this.showScoreAlert = false;
+    }, 2500);
+  }
+
   ngOnDestroy(): void {
-    //this.questionExpirationTimer.unsubscribe();
+    this.resetTheTimer();
+    this.subsUser.unsubscribe();
   }
 
 }

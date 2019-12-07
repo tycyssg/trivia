@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
-
-import {Router} from "@angular/router";
 import {CategoryModel} from "../models/category.model";
-import {catchError, tap} from "rxjs/operators";
+import {catchError, map, tap} from "rxjs/operators";
+import {UserModel} from "../models/user.model";
+import {UserService} from "./user.service";
 
 
 
@@ -19,9 +19,10 @@ export class QuestionService {
     getAllCategories: "/api/auth/getAllCategories",
     saveQuestion: "/api/admin/saveQuestion",
     deleteQuestion: "/api/admin/deleteQuestion",
+    updateUserScore: "/api/auth/updateUserScore",
   };
 
-  constructor(private httpClient:HttpClient,private router:Router) { }
+  constructor(private httpClient:HttpClient,private userService:UserService) { }
 
 
   saveCategory(category: CategoryModel): Observable<CategoryModel> {
@@ -52,13 +53,6 @@ export class QuestionService {
       );
     }
 
-    getAllQuestions():Observable<CategoryModel[]>{
-    return this.httpClient
-      .get<CategoryModel[]>(this.urls.getAllCategories,)
-      .pipe(
-        catchError(this.handleError)
-      );
-    }
 
 
   private handleError(errorRes: HttpErrorResponse) {
@@ -82,4 +76,23 @@ export class QuestionService {
     return this.httpClient.delete<string>(url);
   }
 
+  updateUserScore(score: number): Observable<any> {
+    return this.httpClient.post<any>(this.urls.updateUserScore, score, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json;charset=utf-8",
+        Accept: "application/json",
+        responseType: "json",
+      }),
+    }).pipe(catchError(this.handleError),map(resp =>{
+      //update the user score
+      let memoryUser:UserModel = JSON.parse(localStorage.getItem('userData'));
+
+      if(memoryUser){
+        memoryUser.score = resp.body;
+        localStorage.setItem('userData',JSON.stringify(memoryUser));
+        this.userService.user.next(memoryUser);
+      }
+      return score;
+    }));
+  }
 }
