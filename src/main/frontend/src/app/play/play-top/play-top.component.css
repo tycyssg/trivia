@@ -1,0 +1,16 @@
+.top-wrapper {
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  grid-gap: 15px;
+}
+
+.wrapper{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-f{
+  grid-column: 1/-1;
+}

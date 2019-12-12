@@ -1,0 +1,27 @@
+<div class="wrapper">
+
+<div class="top-wrapper">
+
+<div class="box-f">
+  <h3 class="text-primary text-center">Trivia top three players!</h3>
+  <hr>
+</div>
+
+<div class="box" *ngFor="let top of topPlayers; let i = index">
+<div class="card" style="width: 18rem;">
+  <img src="../../../assets/images/top{{i+1}}.png" width="203" height="219" class="card-img-top" alt="...">
+  <div class="card-body">
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item list-group-item-primary text-center"><fa-icon [icon]="['fas', 'user-tag']"></fa-icon> {{top.username}}</li>
+      <li class="list-group-item list-group-item-primary text-center"><fa-icon [icon]="['fas', 'star-half-alt']"></fa-icon> {{top.score}} Points</li>
+    </ul>
+
+
+  </div>
+</div>
+</div>
+
+</div>
+
+</div>
