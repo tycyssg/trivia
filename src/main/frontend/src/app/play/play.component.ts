@@ -117,10 +117,12 @@ export class PlayComponent implements OnInit,OnDestroy {
     if(this.selectedQuestionIndex == (this.currentPlayingQuestions.length-1)){
       this.selectedQuestionIndex = 0;
       this.selectedQuestion = this.currentPlayingQuestions[this.selectedQuestionIndex];
+      this.selectedQuestion.questionAnswers = this.doShuffle();
       this.answerTimer();
     }else{
       this.selectedQuestionIndex++;
       this.selectedQuestion = this.currentPlayingQuestions[this.selectedQuestionIndex];
+      this.selectedQuestion.questionAnswers = this.doShuffle();
       this.answerTimer();
     }
   }
