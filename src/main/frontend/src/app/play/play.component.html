@@ -16,7 +16,7 @@
     <div class="box p-4">
 
       <mat-card *ngIf="currentPlayingQuestions.length == 0">
-        Select a category and play
+        <app-play-top></app-play-top>
       </mat-card>
 
       <mat-card class="border border-light w-100 rounded d-question" *ngIf="currentPlayingQuestions.length > 0">

@@ -32,6 +32,7 @@ import { PlayComponent } from './play/play.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import {AuthInterceptorService} from "./services/auth-interceptor.service";
 import {MatTabsModule} from "@angular/material";
+import { PlayTopComponent } from './play/play-top/play-top.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {MatTabsModule} from "@angular/material";
     NotFoundComponent,
     UnauthorizedComponent,
     PlayComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    PlayTopComponent
   ],
   imports: [
     BrowserModule,

@@ -20,6 +20,7 @@ export class QuestionService {
     saveQuestion: "/api/admin/saveQuestion",
     deleteQuestion: "/api/admin/deleteQuestion",
     updateUserScore: "/api/auth/updateUserScore",
+    getTopThreePlayers: "/api/auth/getTopThreePlayers",
   };
 
   constructor(private httpClient:HttpClient,private userService:UserService) { }
@@ -53,6 +54,13 @@ export class QuestionService {
       );
     }
 
+  getTopThreePlayers():Observable<UserModel[]>{
+    return this.httpClient
+      .get<UserModel[]>(this.urls.getTopThreePlayers,)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
 
   private handleError(errorRes: HttpErrorResponse) {

@@ -30,10 +30,12 @@ public class AuthController {
 
 
     private final QuestionService questionService;
+    private final UserService userService;
 
     @Autowired
-    public AuthController(QuestionService questionService) {
+    public AuthController(QuestionService questionService, UserService userService) {
         this.questionService = questionService;
+        this.userService = userService;
     }
 
 
@@ -61,6 +63,17 @@ public class AuthController {
         }
 
         return new ResponseEntity<>(questionService.updateUserScore(score), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getTopThreePlayers")
+    public ResponseEntity<?> getTopThreePlayers(){
+
+        List<User> topThreeUsers= userService.getTopThreeUsers();
+        if(topThreeUsers.isEmpty()){
+            return new ResponseEntity<>(new Gson().toJson("NO_PLAYERS"), HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(topThreeUsers, HttpStatus.OK);
     }
 
 }

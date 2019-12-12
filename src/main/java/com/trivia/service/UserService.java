@@ -16,5 +16,5 @@ public interface UserService {
 
     String currentUser();
 
-
+    List<User> getTopThreeUsers();
 }

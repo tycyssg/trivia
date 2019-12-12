@@ -51,6 +51,7 @@ public class JwtTokenProvider {
                 .map(role -> role.startsWith("ROLE_")? role:"ROLE_"+role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+
         return username!=null ? new UsernamePasswordAuthenticationToken(username, null, authorities):null;
     }
 
@@ -60,7 +61,7 @@ public class JwtTokenProvider {
             return false;
         }
         Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-        if(claims.getExpiration().before(new Date())){
+        if(claims.getExpiration().before(new Date(System.currentTimeMillis()))){
             return false;
         }
         return true;
